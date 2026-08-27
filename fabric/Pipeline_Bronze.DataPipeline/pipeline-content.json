@@ -20,7 +20,7 @@
               }
             ],
             "storeSettings": {
-              "type": "LakehouseReadSettings",
+              "type": "AzureBlobStorageReadSettings",
               "recursive": true,
               "enablePartitionDiscovery": false
             },
@@ -32,7 +32,8 @@
                   "folderPath": "landing/invoices",
                   "fileName": "DS2_Invoices.xlsx"
                 },
-                "sheetIndex": 0
+                "sheetIndex": 0,
+                "firstRowAsHeader": true
               },
               "schema": [],
               "linkedService": {
@@ -57,7 +58,7 @@
               "enableVertiParquet": true
             },
             "storeSettings": {
-              "type": "LakehouseWriteSettings",
+              "type": "AzureBlobStorageWriteSettings",
               "copyBehavior": "FlattenHierarchy"
             },
             "datasetSettings": {
@@ -105,6 +106,118 @@
         },
         "name": "XLS to Parquet",
         "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "EXEC bronze.sp_LoadCustomers\n    @PipelineRunId = '@{pipeline().RunId}',\n    @ActivityName   = 'LoadCustomers',\n    @IngestedTs     = '@{utcNow()}',\n    @SourceFile     = 'customers.txt';\n\nEXEC bronze.sp_LoadInvoices\n    @PipelineRunId = '@{pipeline().RunId}',\n    @ActivityName   = 'LoadInvoices',\n    @IngestedTs     = '@{utcNow()}',\n    @SourceFile     = 'invoices.parquet';\n\nEXEC bronze.sp_LoadPayments\n    @PipelineRunId = '@{pipeline().RunId}',\n    @ActivityName   = 'LoadPayments',\n    @IngestedTs     = '@{utcNow()}',\n    @SourceFile     = 'payments.csv';",
+                "type": "Expression"
+              },
+              "type": "NonQuery"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "edw",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "ca80cd27-e076-9b99-4b74-4e4c29bf4361",
+              "endpoint": "cnyheh6qc6dungbrffru3ha27u-gfd3rycr3exujhgoub7s4nbde4.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "LoadToBronze",
+        "dependsOn": [
+          {
+            "activity": "XLS to Parquet",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "INSERT INTO bronze.pipeline_run_info (PipelineRunId, PipelineName, PipelineId, PipelineStartTs, InsertedTs) VALUES (@pipelineRunId, @pipelineName, @pipelineId, @pipelineStartTs, SYSUTCDATETIME());",
+                "type": "Expression"
+              },
+              "type": "NonQuery",
+              "parameters": [
+                {
+                  "name": "pipelineRunId",
+                  "type": "String",
+                  "value": "@pipeline().RunId",
+                  "direction": "Input"
+                },
+                {
+                  "name": "pipelineName",
+                  "type": "String",
+                  "value": "@pipeline().PipelineName",
+                  "direction": "Input"
+                },
+                {
+                  "name": "pipelineId",
+                  "type": "String",
+                  "value": "@pipeline().Pipeline",
+                  "direction": "Input"
+                },
+                {
+                  "name": "pipelineStartTs",
+                  "type": "Datetime",
+                  "value": "@pipeline().TriggerTime",
+                  "direction": "Input"
+                }
+              ]
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "edw",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "ca80cd27-e076-9b99-4b74-4e4c29bf4361",
+              "endpoint": "cnyheh6qc6dungbrffru3ha27u-gfd3rycr3exujhgoub7s4nbde4.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "BronzeRunInfo",
+        "dependsOn": [
+          {
+            "activity": "LoadToBronze",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ]
       }
     ]
   }

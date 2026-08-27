@@ -4,9 +4,8 @@ CREATE TABLE [silver].[customer] (
 	[CustomerName] varchar(120) NOT NULL, 
 	[CustomerCategory] varchar(40) NOT NULL, 
 	[DeletedFlag] char(1) NOT NULL, 
-	[InsertedTs] datetime2(6) NULL
+	[InsertedTs] datetime2(6) NOT NULL, 
+	[UpdatedTs] datetime2(6) NULL, 
+	[InsertedRunId] varchar(50) NOT NULL, 
+	[UpdatedRunId] varchar(50) NULL
 );
-
-
-GO
-ALTER TABLE [silver].[customer] ADD CONSTRAINT PK_silver_customer primary key NONCLUSTERED ([CustomerId]);

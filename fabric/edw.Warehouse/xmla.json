@@ -13,8 +13,8 @@
     "sourceQueryCulture": "en-US",
     "tables": [
       {
-        "name": "customer(1)",
-        "sourceLineageTag": "[bronze].[customer]",
+        "name": "customers",
+        "sourceLineageTag": "[bronze].[customers]",
         "columns": [
           {
             "name": "CustomerId",
@@ -59,11 +59,25 @@
             ]
           },
           {
-            "name": "DeletedFlag",
+            "name": "PipelineRunId",
             "dataType": "string",
-            "sourceColumn": "DeletedFlag",
+            "sourceColumn": "PipelineRunId",
             "sourceProviderType": "varchar",
-            "sourceLineageTag": "DeletedFlag",
+            "sourceLineageTag": "PipelineRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ActivityName",
+            "dataType": "string",
+            "sourceColumn": "ActivityName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ActivityName",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -108,7 +122,7 @@
             "mode": "directLake",
             "source": {
               "type": "entity",
-              "entityName": "customer",
+              "entityName": "customers",
               "expressionSource": "DatabaseQuery",
               "schemaName": "bronze"
             }
@@ -122,8 +136,8 @@
         ]
       },
       {
-        "name": "invoice(1)",
-        "sourceLineageTag": "[bronze].[invoice]",
+        "name": "invoices",
+        "sourceLineageTag": "[bronze].[invoices]",
         "columns": [
           {
             "name": "CompanyId",
@@ -131,48 +145,6 @@
             "sourceColumn": "CompanyId",
             "sourceProviderType": "varchar",
             "sourceLineageTag": "CompanyId",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "InvoiceNumber",
-            "dataType": "string",
-            "sourceColumn": "InvoiceNumber",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "InvoiceNumber",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "InvoiceType",
-            "dataType": "string",
-            "sourceColumn": "InvoiceType",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "InvoiceType",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "PostingDate",
-            "dataType": "string",
-            "sourceColumn": "PostingDate",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "PostingDate",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -201,6 +173,48 @@
             "sourceColumn": "CountryId",
             "sourceProviderType": "varchar",
             "sourceLineageTag": "CountryId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DocumentNumber",
+            "dataType": "string",
+            "sourceColumn": "DocumentNumber",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "DocumentNumber",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DocumentType",
+            "dataType": "string",
+            "sourceColumn": "DocumentType",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "DocumentType",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PostingDate",
+            "dataType": "string",
+            "sourceColumn": "PostingDate",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PostingDate",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -252,11 +266,25 @@
             ]
           },
           {
-            "name": "DeletedFlag",
+            "name": "PipelineRunId",
             "dataType": "string",
-            "sourceColumn": "DeletedFlag",
+            "sourceColumn": "PipelineRunId",
             "sourceProviderType": "varchar",
-            "sourceLineageTag": "DeletedFlag",
+            "sourceLineageTag": "PipelineRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ActivityName",
+            "dataType": "string",
+            "sourceColumn": "ActivityName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ActivityName",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -301,7 +329,7 @@
             "mode": "directLake",
             "source": {
               "type": "entity",
-              "entityName": "invoice",
+              "entityName": "invoices",
               "expressionSource": "DatabaseQuery",
               "schemaName": "bronze"
             }
@@ -315,8 +343,8 @@
         ]
       },
       {
-        "name": "payment(1)",
-        "sourceLineageTag": "[bronze].[payment]",
+        "name": "payments",
+        "sourceLineageTag": "[bronze].[payments]",
         "columns": [
           {
             "name": "CompanyId",
@@ -324,34 +352,6 @@
             "sourceColumn": "CompanyId",
             "sourceProviderType": "varchar",
             "sourceLineageTag": "CompanyId",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "PaymentNumber",
-            "dataType": "string",
-            "sourceColumn": "PaymentNumber",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "PaymentNumber",
-            "summarizeBy": "none",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              }
-            ]
-          },
-          {
-            "name": "PaymentType",
-            "dataType": "string",
-            "sourceColumn": "PaymentType",
-            "sourceProviderType": "varchar",
-            "sourceLineageTag": "PaymentType",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -380,6 +380,34 @@
             "sourceColumn": "CountryId",
             "sourceProviderType": "varchar",
             "sourceLineageTag": "CountryId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DocumentNumber",
+            "dataType": "string",
+            "sourceColumn": "DocumentNumber",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "DocumentNumber",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DocumentType",
+            "dataType": "string",
+            "sourceColumn": "DocumentType",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "DocumentType",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -473,11 +501,25 @@
             ]
           },
           {
-            "name": "DeletedFlag",
+            "name": "PipelineRunId",
             "dataType": "string",
-            "sourceColumn": "DeletedFlag",
+            "sourceColumn": "PipelineRunId",
             "sourceProviderType": "varchar",
-            "sourceLineageTag": "DeletedFlag",
+            "sourceLineageTag": "PipelineRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ActivityName",
+            "dataType": "string",
+            "sourceColumn": "ActivityName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ActivityName",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -522,7 +564,199 @@
             "mode": "directLake",
             "source": {
               "type": "entity",
-              "entityName": "payment",
+              "entityName": "payments",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "bronze"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "pipeline_info",
+        "sourceLineageTag": "[bronze].[pipeline_info]",
+        "columns": [
+          {
+            "name": "PipelineName",
+            "dataType": "string",
+            "sourceColumn": "PipelineName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineId",
+            "dataType": "string",
+            "sourceColumn": "PipelineId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineRunId",
+            "dataType": "string",
+            "sourceColumn": "PipelineRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineStartTs",
+            "dataType": "dateTime",
+            "sourceColumn": "PipelineStartTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "PipelineStartTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ActivityStartTs",
+            "dataType": "dateTime",
+            "sourceColumn": "ActivityStartTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "ActivityStartTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "pipeline_info",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "bronze"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "pipeline_run_info(1)",
+        "sourceLineageTag": "[bronze].[pipeline_run_info]",
+        "columns": [
+          {
+            "name": "PipelineRunId",
+            "dataType": "string",
+            "sourceColumn": "PipelineRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineName",
+            "dataType": "string",
+            "sourceColumn": "PipelineName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineId",
+            "dataType": "string",
+            "sourceColumn": "PipelineId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineStartTs",
+            "dataType": "dateTime",
+            "sourceColumn": "PipelineStartTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "PipelineStartTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InsertedTs",
+            "dataType": "dateTime",
+            "sourceColumn": "InsertedTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "InsertedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "pipeline_run_info",
               "expressionSource": "DatabaseQuery",
               "schemaName": "bronze"
             }
@@ -602,6 +836,49 @@
             "formatString": "General Date",
             "sourceProviderType": "datetime2",
             "sourceLineageTag": "InsertedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedTs",
+            "dataType": "dateTime",
+            "sourceColumn": "UpdatedTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "UpdatedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InsertedRunId",
+            "dataType": "string",
+            "sourceColumn": "InsertedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "InsertedRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedRunId",
+            "dataType": "string",
+            "sourceColumn": "UpdatedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "UpdatedRunId",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -779,6 +1056,64 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "DeletedFlag",
+            "dataType": "int64",
+            "sourceColumn": "DeletedFlag",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DeletedFlag",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedTs",
+            "dataType": "dateTime",
+            "sourceColumn": "UpdatedTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "UpdatedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InsertedRunId",
+            "dataType": "string",
+            "sourceColumn": "InsertedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "InsertedRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedRunId",
+            "dataType": "string",
+            "sourceColumn": "UpdatedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "UpdatedRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
           }
         ],
         "partitions": [
@@ -861,11 +1196,11 @@
             ]
           },
           {
-            "name": "reject_reason",
+            "name": "RejectReason",
             "dataType": "string",
-            "sourceColumn": "reject_reason",
+            "sourceColumn": "RejectReason",
             "sourceProviderType": "varchar",
-            "sourceLineageTag": "reject_reason",
+            "sourceLineageTag": "RejectReason",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -875,12 +1210,26 @@
             ]
           },
           {
-            "name": "_quarantine_ts",
+            "name": "InsertedTs",
             "dataType": "dateTime",
-            "sourceColumn": "_quarantine_ts",
+            "sourceColumn": "InsertedTs",
             "formatString": "General Date",
             "sourceProviderType": "datetime2",
-            "sourceLineageTag": "_quarantine_ts",
+            "sourceLineageTag": "InsertedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineRunId",
+            "dataType": "string",
+            "sourceColumn": "PipelineRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineRunId",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -1086,6 +1435,64 @@
                 "value": "Automatic"
               }
             ]
+          },
+          {
+            "name": "DeletedFlag",
+            "dataType": "int64",
+            "sourceColumn": "DeletedFlag",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DeletedFlag",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedTs",
+            "dataType": "dateTime",
+            "sourceColumn": "UpdatedTs",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "UpdatedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InsertedRunId",
+            "dataType": "string",
+            "sourceColumn": "InsertedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "InsertedRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UpdatedRunId",
+            "dataType": "string",
+            "sourceColumn": "UpdatedRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "UpdatedRunId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
           }
         ],
         "partitions": [
@@ -1168,11 +1575,11 @@
             ]
           },
           {
-            "name": "reject_reason",
+            "name": "RejectReason",
             "dataType": "string",
-            "sourceColumn": "reject_reason",
+            "sourceColumn": "RejectReason",
             "sourceProviderType": "varchar",
-            "sourceLineageTag": "reject_reason",
+            "sourceLineageTag": "RejectReason",
             "summarizeBy": "none",
             "annotations": [
               {
@@ -1182,12 +1589,26 @@
             ]
           },
           {
-            "name": "_quarantine_ts",
+            "name": "InsertedTs",
             "dataType": "dateTime",
-            "sourceColumn": "_quarantine_ts",
+            "sourceColumn": "InsertedTs",
             "formatString": "General Date",
             "sourceProviderType": "datetime2",
-            "sourceLineageTag": "_quarantine_ts",
+            "sourceLineageTag": "InsertedTs",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PipelineRunId",
+            "dataType": "string",
+            "sourceColumn": "PipelineRunId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "PipelineRunId",
             "summarizeBy": "none",
             "annotations": [
               {
