@@ -16,7 +16,7 @@ BEGIN
 	   Amount,
 	   CASE
 		   WHEN TRIM(ISNULL(CompanyId,''))     = '' THEN 'Missing CompanyId'
-		   WHEN TRIM(ISNULL(DocumentNumber,'')) = '' THEN 'Missing InvoiceNumber'
+		   WHEN TRIM(ISNULL(DocumentNumber,'')) = '' THEN 'Missing DocumentNumber'
 		   WHEN TRY_CAST(PostingDate AS DATE)  IS NULL THEN 'Invalid PostingDate'
 		   WHEN TRY_CAST(Amount AS DECIMAL(18,8)) IS NULL THEN 'Invalid Amount'
 	   END,

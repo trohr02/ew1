@@ -7,32 +7,25 @@ BEGIN
     ORDER BY InsertedTs DESC
     ;
 	
-    INSERT INTO silver.payment_quarantine
-    SELECT CompanyId, PaymentNumber, PostingDate, Amount,
+    INSERT INTO silver.payment_bad
+    SELECT CompanyId, DocumentNumber, PostingDate, Amount,
            CASE
                WHEN TRIM(ISNULL(CompanyId,''))     = '' THEN 'Missing CompanyId'
-               WHEN TRIM(ISNULL(PaymentNumber,'')) = '' THEN 'Missing PaymentNumber'
-               WHEN TRY_CAST(PostingDate AS DATE)  IS NULL THEN 'Invalid PostingDate'
+               WHEN TRIM(ISNULL(DocumentNumber,'')) = '' THEN 'Missing DocumentNumber'
+               WHEN TRIM(ISNULL(InvoiceNumber,'')) = '' THEN 'Missing InvoiceNumber'
+               WHEN TRY_CONVERT(DATE, PostingDate, 104) IS NULL THEN 'Invalid PostingDate'
                WHEN TRY_CAST(Amount AS DECIMAL(18,8)) IS NULL THEN 'Invalid Amount'
            END,
+		   @CurrentPipelineRunId,
            GETUTCDATE()
-    FROM bronze.payment
+    FROM bronze.payments
     WHERE TRIM(ISNULL(CompanyId,''))     = ''
-       OR TRIM(ISNULL(PaymentNumber,'')) = ''
-       OR TRY_CAST(PostingDate AS DATE)  IS NULL
-       OR (Amount IS NOT NULL AND TRY_CAST(Amount AS DECIMAL(18,8)) IS NULL)
+       OR TRIM(ISNULL(DocumentNumber,'')) = ''
+	   OR TRIM(ISNULL(InvoiceNumber,'')) = ''
+       OR TRY_CONVERT(DATE, PostingDate, 104) IS NULL
+       OR TRY_CAST(Amount AS DECIMAL(18,8)) IS NULL
 	;
 
-    WITH ranked AS (
-        SELECT *, ROW_NUMBER() OVER (
-                    PARTITION BY TRIM(CompanyId), TRIM(PaymentNumber)
-                    ORDER BY _ingest_ts DESC) AS rn
-        FROM bronze.payment
-        WHERE TRIM(ISNULL(CompanyId,''))     <> ''
-          AND TRIM(ISNULL(PaymentNumber,'')) <> ''
-          AND TRY_CAST(PostingDate AS DATE)  IS NOT NULL
-          AND TRY_CAST(Amount AS DECIMAL(18,8)) IS NOT NULL
-    )
     MERGE silver.payment AS t
     USING (
         SELECT
@@ -41,7 +34,7 @@ BEGIN
             CAST(COALESCE(TRIM(DocumentType), 'XNA') AS VARCHAR(20))  AS PaymentType,
             CAST(COALESCE(TRIM(CustomerId), 'XNA') AS VARCHAR(20))    AS CustomerId,
             CAST(COALESCE(UPPER(TRIM(CountryId)), 'XX') AS CHAR(2))   AS CountryId,
-            TRY_CAST(PostingDate  AS DATE)                            AS PostingDate,
+            TRY_CONVERT(DATE, PostingDate, 104)                       AS PostingDate,
             CAST(TRIM(Entry)  AS VARCHAR(20))                         AS Entry,
             CAST(NULLIF(TRIM(EntryType),'') AS VARCHAR(20))           AS EntryType,
             TRY_CAST(Amount AS DECIMAL(18,8))                         AS Amount,
@@ -51,11 +44,13 @@ BEGIN
 		WHERE PipelineRunId = @CurrentPipelineRunId
 		AND TRIM(ISNULL(CompanyId,'')) <> ''
         AND TRIM(ISNULL(DocumentNumber,'')) <> ''
-        AND TRY_CAST(PostingDate AS DATE) IS NOT NULL
+		AND TRIM(ISNULL(InvoiceNumber,'')) <> ''
+        AND TRY_CONVERT(DATE, PostingDate, 104) IS NOT NULL
         AND TRY_CAST(Amount AS DECIMAL(18,8)) IS NOT NULL
     ) AS s
     ON  t.CompanyId     = s.CompanyId
     AND t.PaymentNumber = s.PaymentNumber
+	AND t.InvoiceNumber = s.InvoiceNumber
     WHEN MATCHED AND (
 	    t.PaymentType   <> s.PaymentType OR
 		t.CustomerId    <> s.CustomerId OR
@@ -64,7 +59,6 @@ BEGIN
         t.Entry         <> s.Entry OR
 		t.EntryType     <> s.EntryType OR
         t.Amount        <> s.Amount OR
-		t.InvoiceNumber <> s.InvoiceNumber OR
         t.InvoiceEntry  <> s.InvoiceEntry)
 	THEN UPDATE SET
         t.PaymentType   = s.PaymentType,
@@ -74,7 +68,6 @@ BEGIN
         t.Entry         = s.Entry,       
 		t.EntryType     = s.EntryType,
         t.Amount        = s.Amount,      
-		t.InvoiceNumber = s.InvoiceNumber,
         t.InvoiceEntry  = s.InvoiceEntry,
 	    t.DeletedFlag = 0,
         t.UpdatedTs  = GETUTCDATE(),

@@ -4,7 +4,7 @@
 --        ALTER TABLE (not inline) and must be NONCLUSTERED NOT ENFORCED.
 -- =====================================================================
 
-EXEC sp_executesql N'CREATE SCHEMA silver';
+-- EXEC sp_executesql N'CREATE SCHEMA silver';
 
 DROP TABLE IF EXISTS silver.payment;
 DROP TABLE IF EXISTS silver.invoice;
@@ -82,7 +82,7 @@ ALTER TABLE silver.invoice
 
 ALTER TABLE silver.payment
     ADD CONSTRAINT PK_silver_payment
-    PRIMARY KEY NONCLUSTERED (CompanyId, PaymentNumber) NOT ENFORCED;
+    PRIMARY KEY NONCLUSTERED (CompanyId, PaymentNumber, InvoiceNumber) NOT ENFORCED;
 
 ALTER TABLE silver.invoice
     ADD CONSTRAINT FK_silver_invoice_customer
