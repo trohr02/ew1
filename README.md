@@ -3,7 +3,7 @@
 
 **Data solution has 4 layers.**
 
-- Lanfing - cloud storage where the source files and land.
+- Landing - cloud storage where the source files are expected
 - Bronze - snapshot of source data (possibly more snapshots)
 - Silver - core data store with data transformed into designed and maintained data model
 - Gold - layer for subject specific data transformed into report-ready shape
@@ -15,7 +15,7 @@ Pipelines can be scheduled to periodically (or when triggered) update and refres
 in our data solution,
 
 - Pipeline_Bronze - read files from cloud storage and ingest into Bronze layer
-- Pipeline_Silver - transform data from Bronze do Silver
+- Pipeline_Silver - transform data from Bronze to Silver
 - Pipeline_Gold  - refresh data in Gold layer
 
 # Layers
@@ -23,12 +23,12 @@ in our data solution,
 ## Bronze layer
 
  - Loaded by pipeline `Pipeline_Bronze`
- - One table per file ingested.
+ - One table per file ingested
  - Capable of storing multiple snapshots of one file (multiple versions as they arrived)
  - Data from files loaded as "append" - one Pipeline run, one snapshot
  - Audit metadata for each snapshot.
  - All data items as strings (varchar) without transformations
- - TODO: Maintenance job which will delete old snapshot base on data governance rules
+ - TODO: Maintenance job which will delete old snapshots based on data governance rules
  - TODO: Archive files which have been loaded
 
 
@@ -41,10 +41,10 @@ in our data solution,
 | bronze.payments          | payments.csv                  |
 | bronze.pipeline_run_info | Metadata inserted by pipeline |
 
-## Technical metadata and attributes
+### Technical metadata and columns
 
-Each table has the following technical metadata attributes.\ 
-Columns `PipelineRunId` identified one snapshot (batch).
+Each table has the following technical metadata columns.<br /> 
+Column `PipelineRunId` identifies one snapshot (batch).
 
 | Column        | Note                                   |
 | ------------- | -------------------------------------- |
@@ -55,7 +55,7 @@ Columns `PipelineRunId` identified one snapshot (batch).
 
 ### Table pipeline_run_info
 
-Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables using `PipelineRunInfo`
+Audit metadata about run of Pipelines. Can be joined to bronze tables using `PipelineRunId`
 
 | Column          | Note                     |
 | --------------- | ------------------------ |
@@ -64,6 +64,12 @@ Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables usin
 | PipelineId      | Pipeline Id              |
 | PipelineStartTs | Pipeline start timestamp |
 | InsertedTs      | Insertion timestamp      |
+
+### Excel File Load
+
+Excel File is loaded in two steps
+  1. It is read and stored in Lakehouse as parquet file (all columns as string, no transformation)
+  2. Parquet file is loaded into Bronze table 
 
 ## Silver layer
 
@@ -81,28 +87,30 @@ Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables usin
 - Audit technical columns (see below)
 
 | Table              | PK                         | Notes                                                     |
-| ------------------ | -------------------------- | --------------------------------------------------------- |
+| ------------------ | -------------------------- |-----------------------------------------------------------|
 | silver.customer    | CustomerId                 |                                                           |
 | silver.invoice     | CompanyId<br>InvoiceNumber |                                                           |
 | silver.payment     | CompanyId<br>PaymentNumber | There are other types of transactions, not just payments. |
-| silver.invoice_bad |                            | Rows from bronze.invoices wi dat quality issues           |
-| silver.payment_bad |                            | Rows from bronze.payments wi dat quality issues           |
+| silver.invoice_bad |                            | Rows from bronze.invoices with dat quality issues         |
+| silver.payment_bad |                            | Rows from bronze.payments with dat quality issues         |
 
 ### Metadata audit attributes
+
+Each table has the following technical metadata columns.
 
 | Column         | Note                                      |
 |----------------|-------------------------------------------|
 | DeletedFlag    | 0 - active, 1 - deleted                   |
 | InsertedTs     | Timestamp when row was inserted           |
 | UpdatedTs      | Timestamp when row was updated            |
-| InsertedRunId  | Rum Id of pipeline which inserted the row |
+| InsertedRunId  | Run Id of pipeline which inserted the row |
 | UpdatedRunId   | Run Id of pipeline which updated the row  |
 
 
 ## Gold Layer
 
  - Contains one datamart fo purpose of reports specified by the task
- - Table loaded as full refresh (truncate & insert). 
+ - Table loaded as full refresh (truncate & insert)
  - Only records not marked as "deleted" in Silver
 
 ### Dimensions:
@@ -127,7 +135,7 @@ Apart from Customer dimension all other dimensions are degenerated dimension, th
 
 #### invoice_balance_fact
 
-  - invoice balance amount and sum of transaction per transaction type which contribute balance
+  - invoice balance amount and sum of amounts per transaction type which contribute to balance
   - calculated metrics:
     - InvoicedAmount
     - PaymentAmount
@@ -137,21 +145,21 @@ Apart from Customer dimension all other dimensions are degenerated dimension, th
 
 ### Note on Business logic
 Source file `DS3_Payments.csv` is named "payments", but in facts it contains account ledger transactions.
-There are not just payments. Possible transaction types following. Each transation type increases or 
-decrease account balance. Based on data analysis I decided to treat amount as positive or negative 
+There are not just payments. Possible transaction types below. Transaction type decides if balance increases or 
+decreases. Based on data analysis I decided to treat amount as positive or negative 
 based on transaction type and disregard if Amount itself in source data is with minus sign or not.
 
 Some records have transaction type (DocumentType) = "Blank". I decided to treat them a payment which decreace balance
 Invoice is fully settled (paid) if its balance is 0.
 
 
-| Transastion Type    | Treat as | Note                               |
-|---------------------|----------|------------------------------------|
-| Payment             | -        | Payment                            |
-| Refund              | -        | seems to cancel out Invoice amount |
-| Finance Charge Memo | +        | some additional change             |
-| CR/Adj Note         | -        | Credit notice, decreases balance   |
-| Blank               | -        | not certain, considered payments   |
+| Transastion Type    | Treat as | Note                                |
+|---------------------|----------|-------------------------------------|
+| Payment             | -        | Payment                             |
+| Refund              | -        | seems to cancel out Invoice amount  |
+| Finance Charge Memo | +        | some additional charge              |
+| CR/Adj Note         | -        | Credit notice, decreases balance    |
+| Blank               | -        | not certain, considered as payments |
 
 
 # Pipelines
@@ -159,24 +167,24 @@ Invoice is fully settled (paid) if its balance is 0.
 Pipeline is an execution and orchestration unit. In out simple example there is one pipeline per layer.
 In real data solution there would be dozens of pipelines Each pipeline would have dependencies and 
 there would be some orchestration mechanism which runs pipelines with defined timing, scheduling (frequency)
-and order in a way so that dependencies are observed.  
+and in correct order in such way that dependencies are observed.  
 
 # Infrastructure
 
 I used Microsoft Fabric Free Tier so maybe not all features were available to me. 
-It comes with is own ADLS storage, so I used that instead of separate Storage Account.
+It comes with its own ADLS storage as part of Fabric Lakehouse, so I used that instead of separate Storage Account.
 
-## Landing / Raw Layer
+### Landing / Raw Layer
 uses Fabric Lakehouse - it can hold tables or files. Its file storage is used for incoming files.
 
-## Bronze, Silver, Gold layer
+### Bronze, Silver, Gold layer
 uses Fabric Warehouse. Loading and transformation implemented as stored procedures.
 
-## Jobs / Orchestration
-used Fabric Pipeline (ADF). Pipelines execute stored procedures to perform data load and transformation.
-Pipelines can be triggerd on schedule or base on some other trigger (file arrival, external trigger).
+### Jobs / Orchestration
+uses Fabric Pipeline (ADF). Pipelines execute stored procedures to perform data load and transformation.
+Pipelines can be triggerd on schedule or based on some other trigger (file arrival, external trigger).
 
-## Reports
+# Reports
 implemented in Excel. 
 
 
