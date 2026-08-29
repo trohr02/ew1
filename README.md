@@ -10,7 +10,7 @@
 
 **Pipelines**
 
-Pipelines move and transform data. `Landing -> Bronze -> Silver -> Gold` \  
+Pipelines move and transform data. `Landing -> Bronze -> Silver -> Gold` <br />
 Pipelines can be scheduled to periodically (or when triggered) update and refresh data
 in our data solution,
 
@@ -154,9 +154,35 @@ Invoice is fully settled (paid) if its balance is 0.
 | Blank               | -        | not certain, considered payments   |
 
 
+# Pipelines
+
+Pipeline is an execution and orchestration unit. In out simple example there is one pipeline per layer.
+In real data solution there would be dozens of pipelines Each pipeline would have dependencies and 
+there would be some orchestration mechanism which runs pipelines with defined timing, scheduling (frequency)
+and order in a way so that dependencies are observed.  
+
 # Infrastructure
 
 I used Microsoft Fabric Free Tier so maybe not all features were available to me. 
 It comes with is own ADLS storage, so I used that instead of separate Storage Account.
 
+## Landing / Raw Layer
+uses Fabric Lakehouse - it can hold tables or files. Its file storage is used for incoming files.
+
+## Bronze, Silver, Gold layer
+uses Fabric Warehouse. Loading and transformation implemented as stored procedures.
+
+## Jobs / Orchestration
+used Fabric Pipeline (ADF). Pipelines execute stored procedures to perform data load and transformation.
+Pipelines can be triggerd on schedule or base on some other trigger (file arrival, external trigger).
+
+## Reports
+implemented in Excel. 
+
+
+Customer Balance Report
+[Customer Balance Report - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAbS1hPYPiF7k9X2DnYLiVcA?email=adam.varga%40eurowag.com&e=6c3JCT)
+
+Invoice Balance Analysis
+[Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAewQVN4vEqwyBJ5djl2Olao?e=kWSPCh)
 
