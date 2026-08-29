@@ -185,12 +185,14 @@ uses Fabric Pipeline (ADF). Pipelines execute stored procedures to perform data 
 Pipelines can be triggerd on schedule or based on some other trigger (file arrival, external trigger).
 
 # Reports
-implemented in Excel. 
+implemented in Excel. Excel has connection to Fabric Warehouse so it can refresh the report anytime.
 
 
 Customer Balance Report
-[Customer Balance Report - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAbS1hPYPiF7k9X2DnYLiVcA?email=adam.varga%40eurowag.com&e=6c3JCT)
+  - [Customer Balance Report - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAbS1hPYPiF7k9X2DnYLiVcA?email=adam.varga%40eurowag.com&e=6c3JCT)
+  - [Read-only link](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAV8vnNy1TH29MmXe4vkwli0?e=GUyc7g)
 
 Invoice Balance Analysis
-[Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAewQVN4vEqwyBJ5djl2Olao?e=kWSPCh)
+  - [Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAdyVyZuu8mqlwanCXVKYs3k?email=adam.varga%40eurowag.com&e=ZdOKxF)
+  - [Read-only link](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAZ8JUTsXM2HQs8vPj0TkjQE?e=tKeQtz)
 
