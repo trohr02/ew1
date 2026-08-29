@@ -64,7 +64,9 @@ Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables usin
 
 ## Silver layer
 
-![Silver ERD](img\silver_layer_erd.png)
+
+![Silver ERD](img/silver_layer_erd.png)
+
 
 - Designed data model
 - Correct data types: decimal for monetary data, datetime for dates
