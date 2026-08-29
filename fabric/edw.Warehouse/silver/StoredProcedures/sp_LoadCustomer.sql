@@ -1,9 +1,21 @@
-CREATE   PROCEDURE silver.sp_LoadCustomer AS
+/* 
+============================================================================
+Procedure : silver.sp_LoadCustomer
+Target:     silver.customer
+============================================================================   
+Loads bronze.customer from bronze.customers
+Method: Merg, soft delete 
+============================================================================
+*/
+CREATE   PROCEDURE silver.sp_LoadCustomer
+    @PipelineRunId VARCHAR(50)
+AS
 BEGIN
-    DECLARE @CurrentPipelineRunId VARCHAR(50);
+    DECLARE @BronzePipelineRunId VARCHAR(50);
 
-    SELECT TOP (1) @CurrentPipelineRunId = PipelineRunId
+    SELECT TOP (1) @BronzePipelineRunId = PipelineRunId
     FROM bronze.pipeline_run_info
+	WHERE PipelineName = 'Pipeline_Bronze'
     ORDER BY InsertedTs DESC
     ;
 	
@@ -14,7 +26,7 @@ BEGIN
             COALESCE(TRIM(CustomerName), 'N/A') AS CustomerName,
             COALESCE(TRIM(CustomerCategory), 'XNA') AS CustomerCategory
         FROM bronze.customers
-		WHERE PipelineRunId = @CurrentPipelineRunId
+		WHERE PipelineRunId = @BronzePipelineRunId
 		  AND CustomerId is not null
     ) AS s
     ON t.CustomerId = s.CustomerId
@@ -26,16 +38,16 @@ BEGIN
         t.CustomerCategory = s.CustomerCategory,
         t.DeletedFlag      = 1,
 		t.UpdatedTs        = GETUTCDATE(),
-		t.UpdatedRunId     = @CurrentPipelineRunId
+		t.UpdatedRunId     = @PipelineRunId
     WHEN NOT MATCHED THEN INSERT (
         CustomerId, CustomerName, CustomerCategory, DeletedFlag, 
 		InsertedTs, UpdatedTs, InsertedRunId, UpdatedRunId
         ) VALUES (
 		s.CustomerId, s.CustomerName, s.CustomerCategory, 0,
-        GETUTCDATE(), GETUTCDATE(), @CurrentPipelineRunId, @CurrentPipelineRunId
+        GETUTCDATE(), GETUTCDATE(), @PipelineRunId, @PipelineRunId
 		)
     WHEN NOT MATCHED BY SOURCE THEN UPDATE SET 
         t.DeletedFlag = 1,
-        t.UpdatedRunId = @CurrentPipelineRunId
+        t.UpdatedRunId = @PipelineRunId
 	;
 END

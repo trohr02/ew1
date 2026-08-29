@@ -1,17 +1,19 @@
-/* ============================================================================
-   Procedure : bronze.sp_LoadPayments
-   Target:     bronze.payments
-   ============================================================================   
-   Loads bronze.payments from  CSV file using OPENROWSET
+/* 
+============================================================================
+Procedure : bronze.sp_LoadPayments
+Target:     bronze.payments
+============================================================================   
+Loads bronze.payments from  CSV file using OPENROWSET
 
-   Example call:
-   EXEC bronze.sp_LoadPayments
-        @PipelineRunId = 'a1b2c3d4-0000-1111-2222-333344445555',
-        @ActivityName  = 'CopyPaymentsToBronze',
-        @IngestedTs    = '2026-08-27T10:15:00.000000',
-        @SourceFile    = '/Files/raw/payments/payments.csv';   
-   ============================================================================ */
-CREATE   PROCEDURE bronze.sp_LoadPayments
+Example call:
+EXEC bronze.sp_LoadPayments
+	@PipelineRunId = 'a1b2c3d4-0000-1111-2222-333344445555',
+	@ActivityName  = 'CopyPaymentsToBronze',
+	@IngestedTs    = '2026-08-27T10:15:00.000000',
+	@SourceFile    = '/Files/raw/payments/payments.csv';   
+============================================================================
+*/
+CREATE     PROCEDURE bronze.sp_LoadPayments
     @PipelineRunId  VARCHAR(50),
     @ActivityName   VARCHAR(120),
     @IngestedTs     DATETIME2(6),

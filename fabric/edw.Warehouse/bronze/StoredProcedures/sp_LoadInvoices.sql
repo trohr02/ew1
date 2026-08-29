@@ -1,23 +1,18 @@
---DROP EXTERNAL DATA SOURCE raw;
+/* 
+=====================================================================
+Procedure : bronze.sp_LoadInvoices
+Target: bronze.invoices
+=====================================================================   
+Loads bronze.invoices from a Parquet file using OPENROWSET.
 
---CREATE EXTERNAL DATA SOURCE raw
---WITH (LOCATION = 'https://onelake.dfs.fabric.microsoft.com/e0b84731-d951-442f-9cce-a07f2e342327/6f9295a7-f91e-444e-aade-e04bd00e5461');
-
-
-/* =====================================================================
-   Procedure : bronze.sp_LoadInvoices
-   Target: bronze.invoices
-   =====================================================================   
-   Loads bronze.invoices from a Parquet file using OPENROWSET.
-
-   Example call:
-   EXEC bronze.sp_LoadInvoices
-        @PipelineRunId = '12345678-aaaa-bbbb-cccc-1234567890ab',
-        @ActivityName  = 'CopyInvoicesToBronze',
-        @IngestedTs    = '2026-08-27T10:15:00.000000',
-        @SourceFile    = '/Files/raw/invoices/invoices.parquet';  
-   ===================================================================== */
-CREATE   PROCEDURE bronze.sp_LoadInvoices
+Example call:
+EXEC bronze.sp_LoadInvoices
+	@PipelineRunId = '12345678-aaaa-bbbb-cccc-1234567890ab',
+	@ActivityName  = 'CopyInvoicesToBronze',
+	@IngestedTs    = '2026-08-27T10:15:00.000000',
+	@SourceFile    = '/Files/raw/invoices/invoices.parquet';  
+===================================================================== */
+CREATE     PROCEDURE bronze.sp_LoadInvoices
     @PipelineRunId VARCHAR(50),
     @ActivityName  VARCHAR(120),
     @IngestedTs    DATETIME2(6),
@@ -72,4 +67,4 @@ BEGIN
         EntryType       VARCHAR(4000),
         Amount          VARCHAR(4000)
     ) AS src;
-END;
+END
