@@ -123,7 +123,7 @@ Each table has the following technical metadata columns.
    - Invoice Number
    - Payment Number
 
-Apart from Customer dimension all other dimensions are degenerated dimension, they are just one attribute in a fact table.
+Apart from Customer dimension all other dimensions are degenerate dimension, they are just one attribute in a fact table.
 
 ### Fact tables
 
