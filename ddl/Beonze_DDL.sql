@@ -1,5 +1,3 @@
-EXEC sp_executesql N'CREATE SCHEMA bronze';
-
 DROP TABLE IF EXISTS bronze.customers;
 DROP TABLE IF EXISTS bronze.invoices;
 DROP TABLE IF EXISTS bronze.payments;

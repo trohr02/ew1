@@ -1,9 +1,22 @@
-CREATE OR ALTER PROCEDURE silver.sp_LoadPayment AS
+/* 
+============================================================================
+Procedure : silver.sp_LoadPayment
+Target:     silver.payment
+============================================================================   
+Loads bronze.payments from bronze.payment
+Method: Merg, soft delete 
+Bad data inserted into silver.payment_bad
+============================================================================
+*/
+CREATE OR ALTER PROCEDURE silver.sp_LoadPayment
+    @PipelineRunId VARCHAR(50)
+AS
 BEGIN
-    DECLARE @CurrentPipelineRunId VARCHAR(50);
+    DECLARE @BronzePipelineRunId VARCHAR(50);
 
-    SELECT TOP (1) @CurrentPipelineRunId = PipelineRunId
+    SELECT TOP (1) @BronzePipelineRunId = PipelineRunId
     FROM bronze.pipeline_run_info
+	WHERE PipelineName = 'Pipeline_Bronze'	
     ORDER BY InsertedTs DESC
     ;
 	
@@ -16,7 +29,7 @@ BEGIN
                WHEN TRY_CONVERT(DATE, PostingDate, 104) IS NULL THEN 'Invalid PostingDate'
                WHEN TRY_CAST(Amount AS DECIMAL(18,8)) IS NULL THEN 'Invalid Amount'
            END,
-		   @CurrentPipelineRunId,
+		   @BronzePipelineRunId,
            GETUTCDATE()
     FROM bronze.payments
     WHERE TRIM(ISNULL(CompanyId,''))     = ''
@@ -41,7 +54,7 @@ BEGIN
             CAST(COALESCE(TRIM(InvoiceNumber), 'XNA') AS VARCHAR(50)) AS InvoiceNumber,
             CAST(COALESCE(TRIM(InvoiceEntry), 'XNA')  AS VARCHAR(20)) AS InvoiceEntry
         FROM bronze.payments
-		WHERE PipelineRunId = @CurrentPipelineRunId
+		WHERE PipelineRunId = @BronzePipelineRunId
 		AND TRIM(ISNULL(CompanyId,'')) <> ''
         AND TRIM(ISNULL(DocumentNumber,'')) <> ''
 		AND TRIM(ISNULL(InvoiceNumber,'')) <> ''
@@ -71,7 +84,7 @@ BEGIN
         t.InvoiceEntry  = s.InvoiceEntry,
 	    t.DeletedFlag = 0,
         t.UpdatedTs  = GETUTCDATE(),
-        t.UpdatedRunId = @CurrentPipelineRunId
+        t.UpdatedRunId = @PipelineRunId
     WHEN NOT MATCHED THEN INSERT (
         CompanyId, PaymentNumber, PaymentType, CustomerId, CountryId,
         PostingDate, Entry, EntryType, Amount, InvoiceNumber, InvoiceEntry,
@@ -79,11 +92,12 @@ BEGIN
         ) VALUES (
 		s.CompanyId, s.PaymentNumber, s.PaymentType, s.CustomerId, s.CountryId,
 		s.PostingDate, s.Entry, s.EntryType, s.Amount, s.InvoiceNumber, s.InvoiceEntry, 
-		0, GETUTCDATE(), GETUTCDATE(), @CurrentPipelineRunId, @CurrentPipelineRunId
+		0, GETUTCDATE(), GETUTCDATE(), @PipelineRunId, @PipelineRunId
 		)
     WHEN NOT MATCHED BY SOURCE THEN UPDATE SET 
         t.DeletedFlag = 1,
-        t.UpdatedRunId = @CurrentPipelineRunId
+        t.UpdatedRunId = @PipelineRunId
     ;
 END
 GO
+

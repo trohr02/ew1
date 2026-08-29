@@ -1,10 +1,4 @@
--- =====================================================================
--- Silver layer DDL — Fabric Warehouse
--- Notes: Fabric DW has no DEFAULT constraints; PK/FK must be added by
---        ALTER TABLE (not inline) and must be NONCLUSTERED NOT ENFORCED.
--- =====================================================================
 
--- EXEC sp_executesql N'CREATE SCHEMA silver';
 
 DROP TABLE IF EXISTS silver.payment;
 DROP TABLE IF EXISTS silver.invoice;
@@ -73,29 +67,29 @@ CREATE TABLE silver.payment (
 -- =====================================================================
 
 ALTER TABLE silver.customer
-    ADD CONSTRAINT PK_silver_customer
-    PRIMARY KEY NONCLUSTERED (CustomerId) NOT ENFORCED;
+ADD CONSTRAINT PK_silver_customer
+PRIMARY KEY NONCLUSTERED (CustomerId) NOT ENFORCED;
 
 ALTER TABLE silver.invoice
-    ADD CONSTRAINT PK_silver_invoice
-    PRIMARY KEY NONCLUSTERED (CompanyId, InvoiceNumber) NOT ENFORCED;
+ADD CONSTRAINT PK_silver_invoice
+PRIMARY KEY NONCLUSTERED (CompanyId, InvoiceNumber) NOT ENFORCED;
 
 ALTER TABLE silver.payment
-    ADD CONSTRAINT PK_silver_payment
-    PRIMARY KEY NONCLUSTERED (CompanyId, PaymentNumber, InvoiceNumber) NOT ENFORCED;
+ADD CONSTRAINT PK_silver_payment
+PRIMARY KEY NONCLUSTERED (CompanyId, PaymentNumber, InvoiceNumber) NOT ENFORCED;
 
 ALTER TABLE silver.invoice
-    ADD CONSTRAINT FK_silver_invoice_customer
-    FOREIGN KEY (CustomerId) REFERENCES silver.customer (CustomerId) NOT ENFORCED;
+ADD CONSTRAINT FK_silver_invoice_customer
+FOREIGN KEY (CustomerId) REFERENCES silver.customer (CustomerId) NOT ENFORCED;
 
 ALTER TABLE silver.payment
-    ADD CONSTRAINT FK_silver_payment_customer
-    FOREIGN KEY (CustomerId) REFERENCES silver.customer (CustomerId) NOT ENFORCED;
+ADD CONSTRAINT FK_silver_payment_customer
+FOREIGN KEY (CustomerId) REFERENCES silver.customer (CustomerId) NOT ENFORCED;
 
 ALTER TABLE silver.payment
-    ADD CONSTRAINT FK_silver_payment_invoice
-    FOREIGN KEY (CompanyId, InvoiceNumber)
-    REFERENCES silver.invoice (CompanyId, InvoiceNumber) NOT ENFORCED;
+ADD CONSTRAINT FK_silver_payment_invoice
+FOREIGN KEY (CompanyId, InvoiceNumber)
+REFERENCES silver.invoice (CompanyId, InvoiceNumber) NOT ENFORCED;
 
 
 

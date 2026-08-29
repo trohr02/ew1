@@ -22,13 +22,16 @@ in our data solution,
 
 ## Bronze layer
 
+ - Loaded by pipeline `Pipeline_Bronze`
  - One table per file ingested.
  - Capable of storing multiple snapshots of one file (multiple versions as they arrived)
  - Data from files loaded as "append" - one Pipeline run, one snapshot
  - Audit metadata for each snapshot.
- - TODO: Maintenance job which will delete old snapshot base on data governance rules
  - All data items as strings (varchar) without transformations
- 
+ - TODO: Maintenance job which will delete old snapshot base on data governance rules
+ - TODO: Archive files which have been loaded
+
+
 ### Tables
 
 | Table                    | Source                        |
@@ -67,14 +70,14 @@ Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables usin
 
 ![Silver ERD](img/silver_layer_erd.png)
 
-
 - Designed data model
 - Correct data types: decimal for monetary data, datetime for dates
+- Idempotent load using MERGE statement
+  - Soft-delete using column DeletedFlag (0 - active, 1 - deleted)
+- Loaded by pipeline `Pipeline_Silver`
 - Basic data quality checks
   - Rows with data quality issues quarantined (invoice_bad, payment_bad)
   - Checks: PK null, wrong date string, wrong number string
-- Idempotent load using MERGE statement
-  - Soft-delete using column DeletedFlag (0 - active, 1 - deleted)
 - Audit technical columns (see below)
 
 | Table              | PK                         | Notes                                                     |
@@ -94,6 +97,61 @@ Audit metadata about run of Pipeline_Bronze. Can be joined to bronze tables usin
 | UpdatedTs      | Timestamp when row was updated            |
 | InsertedRunId  | Rum Id of pipeline which inserted the row |
 | UpdatedRunId   | Run Id of pipeline which updated the row  |
+
+
+## Gold Layer
+
+ - Contains one datamart fo purpose of reports specified by the task
+ - Table loaded as full refresh (truncate & insert). 
+ - Only records not marked as "deleted" in Silver
+
+### Dimensions:
+
+   - Customer
+   - Country
+   - Invoice Date
+   - Posting Date
+   - Company
+   - Invoice Number
+   - Payment Number
+
+Apart from Customer dimension all other dimensions are degenerated dimension, they are just one attribute in a fact table.
+
+### Fact tables
+
+#### transaction_fact
+
+  - all transactions, invoices and payments unioned
+  - Calculated metrics:
+    - SignedAmount - sign (negative or positive) determined base on PaymentType
+
+#### invoice_balance_fact
+
+  - invoice balance amount and sum of transaction per transaction type which contribute balance
+  - calculated metrics:
+    - InvoicedAmount
+    - PaymentAmount
+    - CreditNoteAmount
+    - RefundAmount
+    - FinanceChargeAmount
+
+### Note on Business logic
+Source file `DS3_Payments.csv` is named "payments", but in facts it contains account ledger transactions.
+There are not just payments. Possible transaction types following. Each transation type increases or 
+decrease account balance. Based on data analysis I decided to treat amount as positive or negative 
+based on transaction type and disregard if Amount itself in source data is with minus sign or not.
+
+Some records have transaction type (DocumentType) = "Blank". I decided to treat them a payment which decreace balance
+Invoice is fully settled (paid) if its balance is 0.
+
+
+| Transastion Type    | Treat as | Note                               |
+|---------------------|----------|------------------------------------|
+| Payment             | -        | Payment                            |
+| Refund              | -        | seems to cancel out Invoice amount |
+| Finance Charge Memo | +        | some additional change             |
+| CR/Adj Note         | -        | Credit notice, decreases balance   |
+| Blank               | -        | not certain, considered payments   |
 
 
 # Infrastructure
