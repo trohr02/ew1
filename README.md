@@ -152,7 +152,7 @@ There are not just payments. Possible transaction types below. Transaction type 
 decreases. Based on data analysis I decided to treat amount as positive or negative 
 based on transaction type and disregard if Amount itself in source data is with minus sign or not.
 
-Some records have transaction type (DocumentType) = "Blank". I decided to treat them a payment which decresce balance
+Some records have transaction type (DocumentType) = "Blank". I decided to treat them as payments which decrese balance.<br />
 Invoice is fully settled (paid) if its balance is 0.
 
 
@@ -167,8 +167,8 @@ Invoice is fully settled (paid) if its balance is 0.
 
 # Pipelines
 
-Pipeline is an execution and orchestration unit. In out simple example there is one pipeline per layer.
-In real data solution there would be dozens of pipelines Each pipeline would have dependencies and 
+Pipeline is an execution and orchestration unit. In our simple example there is one pipeline per layer.
+In real data solution there would be probably more pipelines. Each pipeline would have dependencies and 
 there would be some orchestration mechanism which runs pipelines with defined timing, scheduling (frequency)
 and in correct order in such way that dependencies are observed.  
 
@@ -191,6 +191,7 @@ Pipelines can be triggerd on schedule or based on some other trigger (file arriv
 
 ## Invoice Summary Report
 ### Power BI
+Note, Y axis is logarithmic.
 ![Invoice Summary Report](img/invoice_summary_report.png)
 
 ## Customer Balance Report
@@ -205,13 +206,14 @@ Pipelines can be triggerd on schedule or based on some other trigger (file arriv
 ## Invoice Count by Days To Payment Histogram
 
 To each invoice we calculated number of days it took to fully paid the invoice. <br/>
-This report shows histogram - how many invoices ware after certain number of days.
+This report shows histogram - how many invoices were paid after certain number of days.
 
 ### Power BI
 ![Invoice Count by Days To Payment Histogram](img/Invoice_Count_by_Days_to_Payment_Report.png)
 
 
 ## Invoice Balance Analysis
+Additional Excel for data analysis based on fact table transaction_fact.
   - [Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAdyVyZuu8mqlwanCXVKYs3k?email=adam.varga%40eurowag.com&e=ZdOKxF)
   - [Read-only link](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAZ8JUTsXM2HQs8vPj0TkjQE?e=tKeQtz)
 
