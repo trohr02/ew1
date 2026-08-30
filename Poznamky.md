@@ -12,8 +12,9 @@
 
 ## Datová kvalita
 
-  - Čekal jsem, že v souborech bydou problémy s datovou kvalitou datumových a číselných údajů a proto, jsem udělal jednoduché řešení, které raw řádky odlívá do "bad" karanténních tabulek, pokud se nezdaří konverze na datový typ date a decimal.
+  - Čekal jsem, že v souborech budou problémy s datovou kvalitou datumových a číselných údajů a proto jsem udělal jednoduché řešení, které raw řádky odlívá do "bad" karanténních tabulek, pokud se nezdaří konverze na datový typ date a decimal.
   - Takové řádky ale v souberech nejsou
+  - V reálém řešení by bylo potřeba řešit životní cylkus takových nálezů - jak dlouho je uchovávat, odstranit/uzavřít nález pokud je chyba v další dávce již odstraněna, atd.
   - Pro reálné řešení by bylo dobré kontrolovat počet řádků v souboru a porovnat ho s počtem v minulé dávce. Pokud má soubor obsahovat Full snapshot, porovnání odhalí situaci, že soubor třeba není kompletní.
   
 
@@ -21,9 +22,10 @@
 
   - V souboru "payments" jsou transakce i jiého druhu než "Payment". Například "credit note" a "refund" , "charge" (nějaký příplatek či nedoplatek). Jedná se vlastně o data z účetní knihy.
   - Je možné se na to dívat **dvěma pohledy**:
-		- A) **jestli je účet vyrovnaný** - k vyrovnání účtu přispívá "payment" i "credit note" (a další typy transakcí) 
-		- B) **jestli je faktura splacená** - potom bychon brali v potaz jen transakce typu "payment"
-		- Nejdříve jsem se na to díval pohledem A), ale potom, jsem si uvědomil, že pro jednoduchost a názornost bude vhodnější řešit jen platby a proto reporty vyhazuji splacení faktur jen na zíklade plateb.
+
+	- A) **jestli je účet vyrovnaný** - k vyrovnání účtu přispívá "payment" i "credit note" (a další typy transakcí) 
+	- B) **jestli je faktura splacená** - potom bychon brali v potaz jen transakce typu "payment"
+	- Nejdříve jsem se na to díval pohledem A), ale potom, jsem si uvědomil, že pro jednoduchost a názornost bude vhodnější řešit jen platby a proto reporty ukazuji splacení faktur jen na základě plateb.
 		
 		
 		
