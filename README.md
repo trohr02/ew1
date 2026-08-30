@@ -22,6 +22,8 @@ in our data solution,
 
 ## Bronze layer
 
+![Pipeline_Bronze](img/Pipeline_Bronze.png)
+
  - Loaded by pipeline `Pipeline_Bronze`
  - One table per file ingested
  - Capable of storing multiple snapshots of one file (multiple versions as they arrived)
@@ -203,7 +205,7 @@ Pipelines can be triggerd on schedule or based on some other trigger (file arriv
 ## Invoice Count by Days To Payment Histogram
 
 To each invoice we calculated number of days it took to fully paid the invoice. <br/>
-This report show histogram - how many invoices ware paid with certain number of days.
+This report shows histogram - how many invoices ware after certain number of days.
 
 ### Power BI
 ![Invoice Count by Days To Payment Histogram](img/Invoice_Count_by_Days_to_Payment_Report.png)
