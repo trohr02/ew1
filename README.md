@@ -22,6 +22,8 @@ in our data solution,
 
 ## Bronze layer
 
+![Pipeline_Bronze](img/Pipeline_Bronze.png)
+
  - Loaded by pipeline `Pipeline_Bronze`
  - One table per file ingested
  - Capable of storing multiple snapshots of one file (multiple versions as they arrived)
@@ -80,7 +82,8 @@ Excel File is loaded in two steps
 - Correct data types: decimal for monetary data, datetime for dates
 - Idempotent load using MERGE statement
   - Soft-delete using column DeletedFlag (0 - active, 1 - deleted)
-- Loaded by pipeline `Pipeline_Silver`
+- Loaded by pipeline `Pipeline_Silver` 
+- Loads only the last batch from bronze tables
 - Basic data quality checks
   - Rows with data quality issues quarantined (invoice_bad, payment_bad)
   - Checks: PK null, wrong date string, wrong number string
@@ -144,12 +147,12 @@ Apart from Customer dimension all other dimensions are degenerate dimension, the
     - FinanceChargeAmount
 
 ### Note on Business logic
-Source file `DS3_Payments.csv` is named "payments", but in facts it contains account ledger transactions.
+Source file `DS3_Payments.csv` is named "payments", but in fact it contains account ledger transactions.
 There are not just payments. Possible transaction types below. Transaction type decides if balance increases or 
 decreases. Based on data analysis I decided to treat amount as positive or negative 
 based on transaction type and disregard if Amount itself in source data is with minus sign or not.
 
-Some records have transaction type (DocumentType) = "Blank". I decided to treat them a payment which decreace balance
+Some records have transaction type (DocumentType) = "Blank". I decided to treat them as payments which decrese balance.<br />
 Invoice is fully settled (paid) if its balance is 0.
 
 
@@ -164,8 +167,8 @@ Invoice is fully settled (paid) if its balance is 0.
 
 # Pipelines
 
-Pipeline is an execution and orchestration unit. In out simple example there is one pipeline per layer.
-In real data solution there would be dozens of pipelines Each pipeline would have dependencies and 
+Pipeline is an execution and orchestration unit. In our simple example there is one pipeline per layer.
+In real data solution there would be probably more pipelines. Each pipeline would have dependencies and 
 there would be some orchestration mechanism which runs pipelines with defined timing, scheduling (frequency)
 and in correct order in such way that dependencies are observed.  
 
@@ -185,12 +188,32 @@ uses Fabric Pipeline (ADF). Pipelines execute stored procedures to perform data 
 Pipelines can be triggerd on schedule or based on some other trigger (file arrival, external trigger).
 
 # Reports
-implemented in Excel. 
+
+## Invoice Summary Report
+### Power BI
+Note, Y axis is logarithmic.
+![Invoice Summary Report](img/invoice_summary_report.png)
+
+## Customer Balance Report
+### Power BI
+![Customer Balance Report](img/Customer_Balance_Report.png)
+
+### Excel
+ - [Customer Balance Report - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAbS1hPYPiF7k9X2DnYLiVcA?email=adam.varga%40eurowag.com&e=6c3JCT)
+ - [Read-only link](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAV8vnNy1TH29MmXe4vkwli0?e=GUyc7g)
 
 
-Customer Balance Report
-[Customer Balance Report - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQDfE0KiqGv3RIGOd9InW5EBAbS1hPYPiF7k9X2DnYLiVcA?email=adam.varga%40eurowag.com&e=6c3JCT)
+## Invoice Count by Days To Payment Histogram
 
-Invoice Balance Analysis
-[Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAewQVN4vEqwyBJ5djl2Olao?e=kWSPCh)
+To each invoice we calculated number of days it took to fully paid the invoice. <br/>
+This report shows histogram - how many invoices were paid after certain number of days.
+
+### Power BI
+![Invoice Count by Days To Payment Histogram](img/Invoice_Count_by_Days_to_Payment_Report.png)
+
+
+## Invoice Balance Analysis
+Additional Excel for data analysis based on fact table transaction_fact.
+  - [Invoice Balance Analysis - XLSX on OneDrive](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAdyVyZuu8mqlwanCXVKYs3k?email=adam.varga%40eurowag.com&e=ZdOKxF)
+  - [Read-only link](https://tomasrohr-my.sharepoint.com/:x:/g/personal/trohr_tomasrohr_onmicrosoft_com/IQAok3msQjBJS4SCVnd8Z5xNAZ8JUTsXM2HQs8vPj0TkjQE?e=tKeQtz)
 

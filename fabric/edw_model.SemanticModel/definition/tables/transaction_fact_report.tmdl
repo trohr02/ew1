@@ -1,0 +1,211 @@
+table transaction_fact_report
+	lineageTag: 9809c213-25f8-407b-8b03-c14282d0f137
+	sourceLineageTag: [gold].[transaction_fact_report]
+
+	column CustomerName
+		dataType: string
+		sourceProviderType: varchar(120)
+		lineageTag: 5971aa7f-c1f9-4b0d-836a-aaf4c3f73d3e
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerCategory
+		dataType: string
+		sourceProviderType: varchar(40)
+		lineageTag: 1eec208b-fd44-43d8-bcae-2a552f2a496c
+		sourceLineageTag: CustomerCategory
+		summarizeBy: none
+		sourceColumn: CustomerCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column CompanyId
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 171d284e-3ae3-4831-96fc-79fb36b9f31e
+		sourceLineageTag: CompanyId
+		summarizeBy: none
+		sourceColumn: CompanyId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceKey
+		dataType: string
+		sourceProviderType: varchar(61)
+		lineageTag: 4d037a2e-bbc0-4e54-869d-ebff8b520b6f
+		sourceLineageTag: InvoiceKey
+		summarizeBy: none
+		sourceColumn: InvoiceKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DocumentKey
+		dataType: string
+		sourceProviderType: varchar(61)
+		lineageTag: 44049419-05c5-46df-9485-8db9f398f45d
+		sourceLineageTag: DocumentKey
+		summarizeBy: none
+		sourceColumn: DocumentKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerId
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 0a5c31c5-fa1b-4a58-8e37-b86be66ed0f6
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryId
+		dataType: string
+		sourceProviderType: char
+		lineageTag: 51201329-99e7-4ecf-aa58-5e36d0dfb022
+		sourceLineageTag: CountryId
+		summarizeBy: none
+		sourceColumn: CountryId
+
+		annotation SummarizationSetBy = Automatic
+
+	column PostingDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 2c1138bf-eea4-4d36-b2a2-a77fb7cf39dc
+		sourceLineageTag: PostingDate
+		summarizeBy: none
+		sourceColumn: PostingDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 9884b8ea-9bd9-49dc-bc05-31ae17d9300c
+		sourceLineageTag: InvoiceDate
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransactionType
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 03437e4d-49de-4abe-8657-9b6907b23901
+		sourceLineageTag: TransactionType
+		summarizeBy: none
+		sourceColumn: TransactionType
+
+		annotation SummarizationSetBy = Automatic
+
+	column SignedAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: 7b55f958-558f-4e45-9c8f-c3da3d77e9ab
+		sourceLineageTag: SignedAmount
+		summarizeBy: sum
+		sourceColumn: SignedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Amount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: e6418d1e-6083-4e3c-9fc4-727413b94def
+		sourceLineageTag: Amount
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SourceAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: d73bb0f8-5c40-4c6d-96f7-81c9347d75c7
+		sourceLineageTag: SourceAmount
+		summarizeBy: sum
+		sourceColumn: SourceAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column InvoicedAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: 12e2e209-6e69-454a-8c14-522081e0348a
+		sourceLineageTag: InvoicedAmount
+		summarizeBy: sum
+		sourceColumn: InvoicedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: 007d8f25-eaab-4d57-867a-0d026bec482c
+		sourceLineageTag: PaymentAmount
+		summarizeBy: sum
+		sourceColumn: PaymentAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CreditNoteAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: 462ba871-d3fc-4df5-9e83-87d0fb247398
+		sourceLineageTag: CreditNoteAmount
+		summarizeBy: sum
+		sourceColumn: CreditNoteAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RefundAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: 589cbc84-61e3-47f2-ab49-a59817c8cca3
+		sourceLineageTag: RefundAmount
+		summarizeBy: sum
+		sourceColumn: RefundAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FinanceChargeAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: c1f02e39-f143-4b2e-aafd-eeb90577e99d
+		sourceLineageTag: FinanceChargeAmount
+		summarizeBy: sum
+		sourceColumn: FinanceChargeAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition transaction_fact_report = entity
+		mode: directLake
+		source
+			entityName: transaction_fact_report
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

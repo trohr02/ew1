@@ -1,0 +1,355 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "14f204e98bff0cb4d6b9",
+  "position": {
+    "x": 10.736253494874186,
+    "y": 0,
+    "z": 0,
+    "height": 1080.7828518173346,
+    "width": 1894.9487418452936,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_balance_report"
+                    }
+                  },
+                  "Property": "CountryId"
+                }
+              },
+              "queryRef": "customer_balance_report.CountryId",
+              "nativeQueryRef": "CountryId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_balance_report"
+                    }
+                  },
+                  "Property": "CustomerId"
+                }
+              },
+              "queryRef": "customer_balance_report.CustomerId",
+              "nativeQueryRef": "CustomerId"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_balance_report"
+                    }
+                  },
+                  "Property": "CustomerName"
+                }
+              },
+              "queryRef": "customer_balance_report.CustomerName",
+              "nativeQueryRef": "CustomerName"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_balance_report"
+                    }
+                  },
+                  "Property": "CustomerCategory"
+                }
+              },
+              "queryRef": "customer_balance_report.CustomerCategory",
+              "nativeQueryRef": "CustomerCategory"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "customer_balance_report"
+                        }
+                      },
+                      "Property": "InvoiceCount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(customer_balance_report.InvoiceCount)",
+              "nativeQueryRef": "Sum of InvoiceCount"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "customer_balance_report"
+                        }
+                      },
+                      "Property": "PaidInvoiceCount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(customer_balance_report.PaidInvoiceCount)",
+              "nativeQueryRef": "Sum of PaidInvoiceCount"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "customer_balance_report"
+                        }
+                      },
+                      "Property": "UnpaidInvoiceCount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(customer_balance_report.UnpaidInvoiceCount)",
+              "nativeQueryRef": "Sum of UnpaidInvoiceCount"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "customer_balance_report"
+                        }
+                      },
+                      "Property": "UnpaidAmount"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(customer_balance_report.UnpaidAmount)",
+              "nativeQueryRef": "Sum of UnpaidAmount"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "customer_balance_report"
+                      }
+                    },
+                    "Property": "PaidInvoiceCount"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontal": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "14D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "15D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "c0e9537393d4e3860f68",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_balance_report"
+              }
+            },
+            "Property": "CustomerId"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "65c6d90a1d3e77b5e6d1",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_balance_report"
+              }
+            },
+            "Property": "CustomerName"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "85f778b576aa599e1b3d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_balance_report"
+              }
+            },
+            "Property": "CustomerCategory"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5234fe8c3046eeff9644",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_balance_report"
+                  }
+                },
+                "Property": "InvoiceCount"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d961ca7ee71630c9bb2b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_balance_report"
+                  }
+                },
+                "Property": "PaidInvoiceCount"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "3e6b0258ee438d771f7d",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_balance_report"
+                  }
+                },
+                "Property": "UnpaidInvoiceCount"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "461639333d30f8c5d1aa",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "customer_balance_report"
+              }
+            },
+            "Property": "CountryId"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "543a5b173434fe1d98fe",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "customer_balance_report"
+                  }
+                },
+                "Property": "UnpaidAmount"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
