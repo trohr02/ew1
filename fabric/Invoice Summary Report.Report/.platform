@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Invoice Summary Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ceba28ce-335f-9471-430d-6237ff280594"
+  }
+}

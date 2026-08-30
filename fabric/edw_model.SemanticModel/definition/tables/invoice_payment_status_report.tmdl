@@ -1,0 +1,142 @@
+table invoice_payment_status_report
+	lineageTag: 480bef6a-e6c1-4161-99b5-556880b130a2
+	sourceLineageTag: [gold].[invoice_payment_status_report]
+
+	column CompanyId
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 9e907270-3173-4e94-bbef-089be21439a2
+		sourceLineageTag: CompanyId
+		summarizeBy: none
+		sourceColumn: CompanyId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceKey
+		dataType: string
+		sourceProviderType: varchar(61)
+		lineageTag: ccd20cd1-6a20-4064-b8b2-9b40938c443e
+		sourceLineageTag: InvoiceKey
+		summarizeBy: none
+		sourceColumn: InvoiceKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerId
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 99244402-4f39-4228-a0e4-fe3188a3deb3
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		sourceProviderType: varchar(120)
+		lineageTag: 847091b9-b809-470d-acb8-bb5c936f41ea
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerCategory
+		dataType: string
+		sourceProviderType: varchar(40)
+		lineageTag: 69ceca80-a365-4c72-a38d-263eeaf14120
+		sourceLineageTag: CustomerCategory
+		summarizeBy: none
+		sourceColumn: CustomerCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 78043010-8d56-4e90-8366-7047304ced5e
+		sourceLineageTag: InvoiceDate
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column FullyPaidDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: f7228df8-3092-4236-8ac5-41eef5074974
+		sourceLineageTag: FullyPaidDate
+		summarizeBy: none
+		sourceColumn: FullyPaidDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column DaysToPayment
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7324a0a5-fbb6-4a7e-ad6b-99bccd026a12
+		sourceLineageTag: DaysToPayment
+		summarizeBy: sum
+		sourceColumn: DaysToPayment
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoicedAmount
+		dataType: double
+		sourceProviderType: decimal(18, 8)
+		lineageTag: e29721a1-1bd4-47e6-8323-11d35147dd5d
+		sourceLineageTag: InvoicedAmount
+		summarizeBy: sum
+		sourceColumn: InvoicedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnpaidAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 611a533c-9d67-423f-a3a4-bb07c3c8e139
+		sourceLineageTag: UnpaidAmount
+		summarizeBy: sum
+		sourceColumn: UnpaidAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaidCnt
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 85be8130-a687-4bc3-8553-1f9e61177a5d
+		sourceLineageTag: PaidCnt
+		summarizeBy: sum
+		sourceColumn: PaidCnt
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnpaidCnt
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 30202746-f312-420f-a6fa-caf75bfc48c5
+		sourceLineageTag: UnpaidCnt
+		summarizeBy: sum
+		sourceColumn: UnpaidCnt
+
+		annotation SummarizationSetBy = Automatic
+
+	partition invoice_payment_status_report = entity
+		mode: directLake
+		source
+			entityName: invoice_payment_status_report
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

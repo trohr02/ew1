@@ -1,0 +1,126 @@
+table invoice_balance_fact
+	lineageTag: 27ca7203-220a-40d5-980b-dc092d174959
+	sourceLineageTag: [gold].[invoice_balance_fact]
+
+	column InvoiceKey
+		dataType: string
+		sourceProviderType: varchar(61)
+		lineageTag: 5676aa1f-efe3-4673-b895-11fa293dc31e
+		sourceLineageTag: InvoiceKey
+		summarizeBy: none
+		sourceColumn: InvoiceKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerId
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 575342b3-19e6-485c-9b2d-f19390a9d7bf
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryId
+		dataType: string
+		sourceProviderType: char
+		lineageTag: 16973ee7-efca-4c4f-9902-6220a921a21b
+		sourceLineageTag: CountryId
+		summarizeBy: none
+		sourceColumn: CountryId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 0b5d5cec-7096-4fc7-a1b1-fe340b2135c6
+		sourceLineageTag: InvoiceDate
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoicedAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 81788c45-e731-400b-b0b5-06520647bcef
+		sourceLineageTag: InvoicedAmount
+		summarizeBy: sum
+		sourceColumn: InvoicedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 18341821-b252-4d2c-af0f-6864eda96c7a
+		sourceLineageTag: PaymentAmount
+		summarizeBy: sum
+		sourceColumn: PaymentAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CreditNoteAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 400930e6-ba0c-4b84-9632-5197f810d545
+		sourceLineageTag: CreditNoteAmount
+		summarizeBy: sum
+		sourceColumn: CreditNoteAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RefundAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 94c898c1-a4c0-40ec-bbe8-e2fc4fe81dcb
+		sourceLineageTag: RefundAmount
+		summarizeBy: sum
+		sourceColumn: RefundAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FinanceChargeAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 55d9c6fe-9518-43e9-9acb-c7721b706504
+		sourceLineageTag: FinanceChargeAmount
+		summarizeBy: sum
+		sourceColumn: FinanceChargeAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RemainingAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 0727e703-b049-4aa6-8dc0-044de8b0f565
+		sourceLineageTag: RemainingAmount
+		summarizeBy: sum
+		sourceColumn: RemainingAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition invoice_balance_fact = entity
+		mode: directLake
+		source
+			entityName: invoice_balance_fact
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

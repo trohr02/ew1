@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "58c7137ace00325036e3",
+  "position": {
+    "x": 10.426687354538402,
+    "y": 0,
+    "z": 0,
+    "height": 987.55624515128,
+    "width": 1732.3196276183087,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "invoice_payment_status_report"
+                    }
+                  },
+                  "Property": "DaysToPayment"
+                }
+              },
+              "queryRef": "invoice_payment_status_report.DaysToPayment",
+              "nativeQueryRef": "DaysToPayment",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "invoice_payment_status_report"
+                        }
+                      },
+                      "Property": "PaidCnt"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(invoice_payment_status_report.PaidCnt)",
+              "nativeQueryRef": "Sum of PaidCnt"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "invoice_payment_status_report"
+                      }
+                    },
+                    "Property": "PaidCnt"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "heading": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Heading2'"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Počet faktur podle počtu dnů do zaplacení'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "42686c53c2ab926009ae",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "invoice_payment_status_report"
+              }
+            },
+            "Property": "DaysToPayment"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "66492749bbc6e90d1dc2",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "invoice_payment_status_report"
+                  }
+                },
+                "Property": "PaidCnt"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

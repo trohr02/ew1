@@ -1,0 +1,11 @@
+{
+  "name": "Custom",
+  "textClasses": {
+    "label": {
+      "fontSize": 13
+    },
+    "header": {
+      "fontSize": 14
+    }
+  }
+}

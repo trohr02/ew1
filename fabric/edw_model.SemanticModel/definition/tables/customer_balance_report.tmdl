@@ -1,0 +1,179 @@
+table customer_balance_report
+	lineageTag: 3c8d1115-7f63-4a9e-9920-c0f8bf426944
+	sourceLineageTag: [gold].[customer_balance_report]
+
+	column CustomerId
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: 51cea15d-3b6e-4860-899b-47c6277b0735
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerCategory
+		dataType: string
+		sourceProviderType: varchar(40)
+		lineageTag: da1307dd-53ae-47f2-8f1f-eee097dc51d5
+		sourceLineageTag: CustomerCategory
+		summarizeBy: none
+		sourceColumn: CustomerCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		sourceProviderType: varchar(120)
+		lineageTag: e350efb3-a4fe-4808-9364-e1972b9d5198
+		sourceLineageTag: CustomerName
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryId
+		dataType: string
+		sourceProviderType: char
+		lineageTag: b72e7445-3f4b-4510-bac3-161c1ba20f8f
+		sourceLineageTag: CountryId
+		summarizeBy: none
+		sourceColumn: CountryId
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoiceDate
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 0cb74981-b7f1-43f8-b85a-8b1e59b4d48f
+		sourceLineageTag: InvoiceDate
+		summarizeBy: none
+		sourceColumn: InvoiceDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column InvoicedAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 7878126a-743d-487e-8e18-4d40a270c779
+		sourceLineageTag: InvoicedAmount
+		summarizeBy: sum
+		sourceColumn: InvoicedAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SettledAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 001d012f-d6ad-4d89-b10f-4db426e1dc2d
+		sourceLineageTag: SettledAmount
+		summarizeBy: sum
+		sourceColumn: SettledAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Remaining
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: b71d07a6-3bb4-4a1d-81db-20ba7fa7d441
+		sourceLineageTag: Remaining
+		summarizeBy: sum
+		sourceColumn: Remaining
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaidAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: 12adaabb-53c9-4248-bc5a-039a3666731b
+		sourceLineageTag: PaidAmount
+		summarizeBy: sum
+		sourceColumn: PaidAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnpaidAmount
+		dataType: double
+		sourceProviderType: decimal(38, 8)
+		lineageTag: b0724a1c-cfbc-451d-b082-43d142c38f4f
+		sourceLineageTag: UnpaidAmount
+		summarizeBy: sum
+		sourceColumn: UnpaidAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column InvoiceCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4f78fbc7-b21b-441c-9d0e-5c1b932f9945
+		sourceLineageTag: InvoiceCount
+		summarizeBy: sum
+		sourceColumn: InvoiceCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column SettledInvoiceCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e274ccdb-e09d-4bff-b228-8dd90417e021
+		sourceLineageTag: SettledInvoiceCount
+		summarizeBy: sum
+		sourceColumn: SettledInvoiceCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnsettledInvoiceCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8a5aa6c3-6afc-472f-98cf-8fdc93cadbe7
+		sourceLineageTag: UnsettledInvoiceCount
+		summarizeBy: sum
+		sourceColumn: UnsettledInvoiceCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column PaidInvoiceCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b14add90-ebf7-4d73-bcaa-c7c454686902
+		sourceLineageTag: PaidInvoiceCount
+		summarizeBy: sum
+		sourceColumn: PaidInvoiceCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnpaidInvoiceCount
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 181b7a30-205e-4223-95f2-a3c3d4cab2ea
+		sourceLineageTag: UnpaidInvoiceCount
+		summarizeBy: sum
+		sourceColumn: UnpaidInvoiceCount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_balance_report = entity
+		mode: directLake
+		source
+			entityName: customer_balance_report
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+ref table customer_balance_report
+ref table transaction_fact_report
+ref table invoice_summary_report
+ref table customer_balance_monthly_report
+ref table invoice_payment_status_report
+ref table invoice_balance_fact
+ref table customer
+

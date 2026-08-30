@@ -1,14 +1,14 @@
--- Auto Generated (Do not modify) CD653F88661BA31713E1C28466190E236CABE7B286DF92E07040DD3D5F7AE1C3
-CREATE   VIEW gold.customer_balance_report AS
+-- Auto Generated (Do not modify) E97EED5D52717DC2570EDC13FD7BF7FCC93FAFF02110C0F1D7A06086F0130DBB
+CREATE   VIEW gold.customer_balance_monthly_report AS
 SELECT
     b.CustomerId,
     c.CustomerCategory,
     c.CustomerName,
     b.CountryId,
-    b.InvoiceDate,
+    datetrunc(month, b.InvoiceDate) as InvoiceMonth,
     sum(InvoicedAmount) as InvoicedAmount,
-    sum(PaymentAmount + CreditNoteAmount + RefundAmount) as SettledAmount,
     sum(RemainingAmount) as Remaining,
+    sum(PaymentAmount + CreditNoteAmount + RefundAmount) as SettledAmount,
     sum(PaymentAmount) as PaidAmount, 
     sum(InvoicedAmount - PaymentAmount) as UnpaidAmount,
 --    sum(PaymentAmount + CreditNoteAmount + RefundAmount)  / nullif(sum(InvoicedAmount),0) as SettledPct,
@@ -22,5 +22,5 @@ SELECT
 from gold.invoice_balance_fact b
 join gold.customer c
   on c.CustomerId = b.CustomerId
-group by b.CustomerId, c.CustomerName, c.CustomerCategory, b.CountryId, b.InvoiceDate
+group by b.CustomerId, c.CustomerName, c.CustomerCategory, b.CountryId, datetrunc(month, b.InvoiceDate)
 ;

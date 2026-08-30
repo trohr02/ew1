@@ -740,6 +740,266 @@
         ]
       },
       {
+        "name": "customer_balance_monthly_report",
+        "sourceLineageTag": "[gold].[customer_balance_monthly_report]",
+        "columns": [
+          {
+            "name": "CustomerId",
+            "dataType": "string",
+            "sourceColumn": "CustomerId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CustomerCategory",
+            "dataType": "string",
+            "sourceColumn": "CustomerCategory",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerCategory",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CustomerName",
+            "dataType": "string",
+            "sourceColumn": "CustomerName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CountryId",
+            "dataType": "string",
+            "sourceColumn": "CountryId",
+            "sourceProviderType": "char",
+            "sourceLineageTag": "CountryId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceMonth",
+            "dataType": "dateTime",
+            "sourceColumn": "InvoiceMonth",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "InvoiceMonth",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoicedAmount",
+            "dataType": "double",
+            "sourceColumn": "InvoicedAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "InvoicedAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "Remaining",
+            "dataType": "double",
+            "sourceColumn": "Remaining",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "Remaining",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "SettledAmount",
+            "dataType": "double",
+            "sourceColumn": "SettledAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "SettledAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "PaidAmount",
+            "dataType": "double",
+            "sourceColumn": "PaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "PaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidAmount",
+            "dataType": "double",
+            "sourceColumn": "UnpaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "UnpaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "InvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "InvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "SettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "SettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnsettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnsettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnsettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "PaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnpaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnpaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "customer_balance_monthly_report",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "gold"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
         "name": "customer_balance_report",
         "sourceLineageTag": "[gold].[customer_balance_report]",
         "columns": [
@@ -786,42 +1046,6 @@
             ]
           },
           {
-            "name": "Invoiced",
-            "dataType": "double",
-            "sourceColumn": "Invoiced",
-            "sourceProviderType": "decimal",
-            "sourceLineageTag": "Invoiced",
-            "summarizeBy": "sum",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              },
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ]
-          },
-          {
-            "name": "Settled",
-            "dataType": "double",
-            "sourceColumn": "Settled",
-            "sourceProviderType": "decimal",
-            "sourceLineageTag": "Settled",
-            "summarizeBy": "sum",
-            "annotations": [
-              {
-                "name": "SummarizationSetBy",
-                "value": "Automatic"
-              },
-              {
-                "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
-              }
-            ]
-          },
-          {
             "name": "Remaining",
             "dataType": "double",
             "sourceColumn": "Remaining",
@@ -840,11 +1064,40 @@
             ]
           },
           {
-            "name": "SettledPct",
+            "name": "CustomerName",
+            "dataType": "string",
+            "sourceColumn": "CustomerName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceDate",
+            "dataType": "dateTime",
+            "sourceColumn": "InvoiceDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "InvoiceDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoicedAmount",
             "dataType": "double",
-            "sourceColumn": "SettledPct",
+            "sourceColumn": "InvoicedAmount",
             "sourceProviderType": "decimal",
-            "sourceLineageTag": "SettledPct",
+            "sourceLineageTag": "InvoicedAmount",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -858,11 +1111,11 @@
             ]
           },
           {
-            "name": "RemainingPct",
+            "name": "SettledAmount",
             "dataType": "double",
-            "sourceColumn": "RemainingPct",
+            "sourceColumn": "SettledAmount",
             "sourceProviderType": "decimal",
-            "sourceLineageTag": "RemainingPct",
+            "sourceLineageTag": "SettledAmount",
             "summarizeBy": "sum",
             "annotations": [
               {
@@ -872,6 +1125,117 @@
               {
                 "name": "PBI_FormatHint",
                 "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "PaidAmount",
+            "dataType": "double",
+            "sourceColumn": "PaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "PaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidAmount",
+            "dataType": "double",
+            "sourceColumn": "UnpaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "UnpaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "InvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "InvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "SettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "SettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnsettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnsettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnsettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "PaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnpaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnpaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
               }
             ]
           }
@@ -1072,6 +1436,429 @@
             "source": {
               "type": "entity",
               "entityName": "invoice_balance_fact",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "gold"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "invoice_payment_status_report",
+        "sourceLineageTag": "[gold].[invoice_payment_status_report]",
+        "columns": [
+          {
+            "name": "CompanyId",
+            "dataType": "string",
+            "sourceColumn": "CompanyId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CompanyId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceKey",
+            "dataType": "string",
+            "sourceColumn": "InvoiceKey",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "InvoiceKey",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CustomerId",
+            "dataType": "string",
+            "sourceColumn": "CustomerId",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerId",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CustomerName",
+            "dataType": "string",
+            "sourceColumn": "CustomerName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "CustomerCategory",
+            "dataType": "string",
+            "sourceColumn": "CustomerCategory",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerCategory",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceDate",
+            "dataType": "dateTime",
+            "sourceColumn": "InvoiceDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "InvoiceDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "FullyPaidDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullyPaidDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "FullyPaidDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "DaysToPayment",
+            "dataType": "int64",
+            "sourceColumn": "DaysToPayment",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "DaysToPayment",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoicedAmount",
+            "dataType": "double",
+            "sourceColumn": "InvoicedAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "InvoicedAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidAmount",
+            "dataType": "double",
+            "sourceColumn": "UnpaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "UnpaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "PaidCnt",
+            "dataType": "int64",
+            "sourceColumn": "PaidCnt",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PaidCnt",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidCnt",
+            "dataType": "int64",
+            "sourceColumn": "UnpaidCnt",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnpaidCnt",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "invoice_payment_status_report",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "gold"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "invoice_summary_report",
+        "sourceLineageTag": "[gold].[invoice_summary_report]",
+        "columns": [
+          {
+            "name": "CustomerCategory",
+            "dataType": "string",
+            "sourceColumn": "CustomerCategory",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "CustomerCategory",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceDate",
+            "dataType": "dateTime",
+            "sourceColumn": "InvoiceDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "InvoiceDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "InvoicedAmount",
+            "dataType": "double",
+            "sourceColumn": "InvoicedAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "InvoicedAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "SettledAmount",
+            "dataType": "double",
+            "sourceColumn": "SettledAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "SettledAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "Remaining",
+            "dataType": "double",
+            "sourceColumn": "Remaining",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "Remaining",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "PaidAmount",
+            "dataType": "double",
+            "sourceColumn": "PaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "PaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidAmount",
+            "dataType": "double",
+            "sourceColumn": "UnpaidAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "UnpaidAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "InvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "InvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "InvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "SettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "SettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnsettledInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnsettledInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnsettledInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "PaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "PaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "PaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "UnpaidInvoiceCount",
+            "dataType": "int64",
+            "sourceColumn": "UnpaidInvoiceCount",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "UnpaidInvoiceCount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "invoice_summary_report",
               "expressionSource": "DatabaseQuery",
               "schemaName": "gold"
             }

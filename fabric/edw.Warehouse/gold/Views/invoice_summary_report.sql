@@ -1,10 +1,7 @@
--- Auto Generated (Do not modify) CD653F88661BA31713E1C28466190E236CABE7B286DF92E07040DD3D5F7AE1C3
-CREATE   VIEW gold.customer_balance_report AS
+-- Auto Generated (Do not modify) 1D26278DC1B5E31B0F12F0A6BCC55C91C2994905FD0ADC042F037689B0165CA7
+CREATE   VIEW gold.invoice_summary_report AS
 SELECT
-    b.CustomerId,
     c.CustomerCategory,
-    c.CustomerName,
-    b.CountryId,
     b.InvoiceDate,
     sum(InvoicedAmount) as InvoicedAmount,
     sum(PaymentAmount + CreditNoteAmount + RefundAmount) as SettledAmount,
@@ -19,8 +16,8 @@ SELECT
     sum(case when RemainingAmount > 0 then 1 else 0 end) as UnsettledInvoiceCount,
     sum(case when InvoicedAmount = PaymentAmount then 1 else 0 end) as PaidInvoiceCount,
     sum(case when InvoicedAmount > PaymentAmount then 1 else 0 end) as UnpaidInvoiceCount   
-from gold.invoice_balance_fact b
-join gold.customer c
+FROM gold.invoice_balance_fact b
+JOIN gold.customer c
   on c.CustomerId = b.CustomerId
-group by b.CustomerId, c.CustomerName, c.CustomerCategory, b.CountryId, b.InvoiceDate
+GROUP BY c.CustomerCategory, b.InvoiceDate
 ;

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Invoice Count by Days to Payment Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "54eeeda2-f0e4-88fd-4e9f-73756f65eaec"
+  }
+}
